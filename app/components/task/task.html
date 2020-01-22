@@ -1,0 +1,24 @@
+<div ng-controller="TaskController">
+    <div ng-class="{'border-left border-success': task.status}">
+        <div class="card card-task shadow-sm border-0">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h6>{{task.title}}</h6>
+                        <span ng-repeat="tag in task.tags" class="badge badge-pill badge-light mr-2">{{tag}}</span>
+                        <br>
+                        <small>{{task.createdAt | date : 'MMM d, y HH:mm:ss '}}</small>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+            <button ng-click="editDialog(task, onEditTaskSuccess)" class="btn btn-warning btn-circle btn-edit-task shadow-sm">
+                <i class="material-icons" style="font-size:16px;">create</i>
+            </button>
+            <button type="button" class="btn btn-danger btn-circle shadow-sm" ng-click="deleteTask({param: task._id})">
+                <i class="material-icons" style="font-size:16px;">close</i>
+            </button>
+        </div>
+    </div>
+</div>

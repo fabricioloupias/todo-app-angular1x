@@ -1,0 +1,40 @@
+<spinner-full-screen-component ng-if="showFullScreenSpinner"></spinner-full-screen-component>
+<md-dialog>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <h4 class="mb-4">Edit Task</h4>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" class="form-control" ng-model="taskCopy.title" value="taskCopy.title" id="titleTask"
+                        aria-describedby="titleHelp">
+                </div>
+                <div class="form-group">
+                    <div class="row align-items-end">
+                        <div class="col-lg-9 col-md-12 mb-3">
+                            <label for="">Tags</label>
+                            <input type="text" ng-model="tagCopy" class="form-control" id="tagTask"
+                                aria-describedby="tagHelp">
+                        </div>
+                        <div class="col-lg-3 col-md-12 mb-3">
+                            <button type="button" class="btn btn-warning btn-block" ng-click="addTag()">Add tag</button>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" ng-click="removeTagCopy($index)" ng-model="taskCopy.tags" ng-repeat="tagCopy in taskCopy.tags"
+                    class="badge badge-light mr-2">{{tagCopy}} <img src="./assets/img/clear-24px.svg" width="12"
+                        alt=""></a>
+            </form>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()" class="md-primary">
+            Cancel
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="saveTask()" class="md-primary">
+            Save
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

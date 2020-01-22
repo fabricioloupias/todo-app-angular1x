@@ -1,0 +1,9 @@
+<md-toast role="alert" aria-relevant="all">
+    <span class="md-toast-text" flex>{{ctrl.toastMessage}}</span>
+    <md-button ng-if="!ctrl.isDeleteAction" ng-click="ctrl.closeToast()">
+        Close
+    </md-button>
+    <md-button ng-if="ctrl.isDeleteAction" ng-click="ctrl.undo()">
+        Undo
+    </md-button>
+</md-toast>

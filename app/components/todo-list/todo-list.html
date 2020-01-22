@@ -1,0 +1,102 @@
+<div ng-controller="TodoListController" class="container">
+    <spinner-full-screen-component ng-if="showFullScreenSpinner"></spinner-full-screen-component>
+    <h2 ng-if="!showSpinner && todoList.length == 0" class="text-center mt-5">Add first task</h2>
+    <div ng-if="!showSpinner && todoList.length == 0" class="text-center">
+        <button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#addNewTaskModal">Add
+            Task</button>
+    </div>
+    <div ng-if="todoList.length > 0" class="row align-items-center pt-5 pb-2">
+        <div class="col-md-9 col-7">
+            <h4>All Task</h4>
+        </div>
+        <div class="col-md-3 col-5">
+            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                data-target="#addNewTaskModal">Add
+                Task</button>
+        </div>
+        <div class="col-md-2 mt-3">
+            <div class="dropdown">
+                <a class="dropdown-toggle text-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Order
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <span class="dropdown-item" ng-click="orderByDate(!filterByDate)">
+                        By Date
+                        <i class="material-icons text-right icon-filter" ng-if="filterByDate">
+                            arrow_upward
+                        </i>
+                        <i class="material-icons text-right icon-filter" ng-if="!filterByDate">
+                            arrow_downward
+                        </i>
+                    </span>
+                    <span class="dropdown-item" ng-click="orderByTitle(!filterByTitle)">
+                        By Title
+                        <i class="material-icons text-right icon-filter" ng-if="filterByTitle">
+                            arrow_upward
+                        </i>
+                        <i class="material-icons text-right icon-filter" ng-if="!filterByTitle">
+                            arrow_downward
+                        </i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <spinner-component ng-if="showSpinner"></spinner-component>
+    </div>
+    <div ng-if="todoList.length > 0" ng-if="!showSpinner" class="item" ng-repeat="task in todoList">
+        <div class="my-4">
+            <task-component task="task" delete-task-cb="handleDeleteTask(param)"
+                on-edit-task-success="handleEditTaskSuccess(param)">
+            </task-component>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addNewTaskModal" tabindex="-1" role="dialog" aria-labelledby="addNewTaskLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewTaskLabel">Add new task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input type="text" class="form-control" ng-model="titleTask" id="titleTask"
+                                aria-describedby="titleHelp">
+                        </div>
+                        <div class="form-group">
+                            <div class="row align-items-end">
+                                <div class="col-md-9 mb-2">
+                                    <label for="exampleInputEmail1">Tags</label>
+                                    <input type="text" ng-model="tag" class="form-control" id="tagTask"
+                                        aria-describedby="tagHelp">
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-warning btn-block" ng-click="addTag()">Add
+                                        tag</button>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" ng-click="removeTag($index)" ng-repeat="tag in tagsAdded"
+                            class="badge badge-light mr-2">{{tag}} <img src="./assets/img/clear-24px.svg" width="12"
+                                alt=""></a>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" ng-click="addTask()" ng-disabled="titleTask.length == 0"
+                        class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
